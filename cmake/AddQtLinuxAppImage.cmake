@@ -8,11 +8,23 @@ message(STATUS "Found Qt for Linux: ${QT_LINUX_QT_ROOT}")
 set(QT_LINUX_QT_ROOT ${QT_LINUX_QT_ROOT})
 set(QT_LINUX_SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR})
 
-find_program(QT_LINUX_DEPLOY_APP linuxdeployqt)
-if(QT_LINUX_DEPLOY_APP)
-  message(STATUS "Found linuxdeployqt : ${QT_LINUX_DEPLOY_APP}")
-else()
-  message(WARNING "Fail to find linuxdeployqt")
+if(NOT QT_LINUX_DEPLOY_APP)
+  find_program(QT_LINUX_DEPLOY_APP linuxdeployqt)
+  if(QT_LINUX_DEPLOY_APP)
+    message(STATUS "Found linuxdeployqt : ${QT_LINUX_DEPLOY_APP}")
+  else()
+    set(QT_LINUX_DEPLOY_APP ${CMAKE_CURRENT_BINARY_DIR}/linuxdeployqt)
+    message(STATUS "Fail to find linuxdeployqt, download from https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage to ${QT_LINUX_DEPLOY_APP}")
+    file(DOWNLOAD "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage" ${CMAKE_CURRENT_BINARY_DIR}/tmp/linuxdeployqt)
+
+    file(
+      COPY ${CMAKE_CURRENT_BINARY_DIR}/tmp/linuxdeployqt
+      DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
+      FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+    )
+
+    file(REMOVE ${CMAKE_CURRENT_BINARY_DIR}/tmp/linuxdeployqt)
+  endif()
 endif()
 
 include(CMakeParseArguments)

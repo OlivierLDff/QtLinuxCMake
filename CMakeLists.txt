@@ -8,4 +8,4 @@ set(QT_LINUX_SOURCE_DIR ${QT_LINUX_SOURCE_DIR} CACHE STRING "add_qt_windows_exe 
 set(QT_LINUX_CMAKE_FOUND ON CACHE BOOL "QtWindowsCMake have been found" FORCE)
 set(QT_LINUX_CMAKE_VERSION "1.2.0" CACHE STRING "QtWindowsCMake version" FORCE)
 
-set(QT_LINUX_DEPLOY_APP ${QT_LINUX_DEPLOY_APP} CACHE STRING "linuxdeployqt program")
+set(QT_LINUX_DEPLOY_APP ${QT_LINUX_DEPLOY_APP} CACHE STRING "linuxdeployqt program" FORCE)
