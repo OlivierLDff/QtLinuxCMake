@@ -49,7 +49,10 @@ function(add_qt_linux_appimage TARGET)
     VERBOSE_LEVEL
   )
 
-  set(QT_LINUX_MULTI_VALUE_ARG DEPENDS)
+  set(QT_LINUX_MULTI_VALUE_ARG
+    DEPENDS
+    EXTRA_PLUGINS
+  )
   # parse the function arguments
   cmake_parse_arguments(ARGIMG "${QT_LINUX_OPTIONS}" "${QT_LINUX_ONE_VALUE_ARG}" "${QT_LINUX_MULTI_VALUE_ARG}" ${ARGN})
 
@@ -84,6 +87,22 @@ function(add_qt_linux_appimage TARGET)
   # -no-plugins
   if(ARGIMG_NO_PLUGINS)
     set(QT_LINUX_PLUGINS_OPT -no-plugins)
+  endif()
+
+  # -extra-plugins
+  # args are comma separated
+  if(ARGIMG_EXTRA_PLUGINS)
+    set(EXTRA_PLUGINS_LIST "")
+    foreach(PLUGIN ${ARGIMG_EXTRA_PLUGINS})
+      message(STATUS "Add Extra plugin : ${PLUGIN}")
+      if(EXTRA_PLUGINS_LIST STREQUAL "")
+        set(EXTRA_PLUGINS_LIST "${PLUGIN}")
+      else()
+        string(APPEND EXTRA_PLUGINS_LIST ",${PLUGIN}")
+      endif()
+    endforeach()
+    message(STATUS "Extra plugins list : ${EXTRA_PLUGINS_LIST}")
+    set(QT_LINUX_EXTRA_PLUGINS_OPT "-extra-plugins=${EXTRA_PLUGINS_LIST}")
   endif()
 
   # -no-strip
@@ -136,6 +155,7 @@ function(add_qt_linux_appimage TARGET)
     message(STATUS "QT_LINUX_QML_DIR_OPT : ${QT_LINUX_QML_DIR_OPT}")
     message(STATUS "QT_LINUX_TRANSLATIONS_OPT : ${QT_LINUX_TRANSLATIONS_OPT}")
     message(STATUS "QT_LINUX_PLUGINS_OPT : ${QT_LINUX_PLUGINS_OPT}")
+    message(STATUS "QT_LINUX_EXTRA_PLUGINS_OPT : ${QT_LINUX_EXTRA_PLUGINS_OPT}")
     message(STATUS "QT_LINUX_STRIP_OPT : ${QT_LINUX_STRIP_OPT}")
     message(STATUS "QT_LINUX_VERBOSE_OPT : ${QT_LINUX_VERBOSE_OPT}")
     message(STATUS "QT_LINUX_APP_VERSION : ${QT_LINUX_APP_VERSION}")
@@ -163,6 +183,7 @@ function(add_qt_linux_appimage TARGET)
       ${QT_LINUX_QML_DIR_OPT}
       ${QT_LINUX_TRANSLATIONS_OPT}
       ${QT_LINUX_PLUGINS_OPT}
+      ${QT_LINUX_EXTRA_PLUGINS_OPT}
       ${QT_LINUX_STRIP_OPT}
       ${QT_LINUX_COPYRIGHT_OPT}
       ${QT_LINUX_VERBOSE_OPT}

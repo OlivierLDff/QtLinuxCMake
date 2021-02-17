@@ -42,8 +42,8 @@ Should point to the folder containing an AppDir structure.
         │   └── your_app.desktop
         └── icons
             └── <theme>
-                └── <resolution> 
-                    └── apps 
+                └── <resolution>
+                    └── apps
                         └── your_app.png
 ```
 
@@ -58,6 +58,20 @@ Skip deployment of translations.
 **NO_PLUGINS**
 
 Skip plugin deployment.
+
+**EXTRA_PLUGINS**
+
+List of extra qt plugins to deploy.
+
+```cmake
+EXTRA_PLUGINS
+  "platformthemes/libqgtk3.so"
+  "sqldrivers/libqmsql.so"
+  "iconengines"
+  "gamepads"
+```
+
+More about `-extra-plugins` in official [Readme](https://github.com/probonopd/linuxdeployqt#adding-extra-qt-plugins)
 
 **NO_STRIP**
 
