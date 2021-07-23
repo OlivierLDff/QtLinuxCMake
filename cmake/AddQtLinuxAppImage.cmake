@@ -9,7 +9,7 @@ set(QT_LINUX_QT_ROOT ${QT_LINUX_QT_ROOT})
 set(QT_LINUX_SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR})
 
 if(NOT QT_LINUX_DEPLOY_APP)
-  find_program(QT_LINUX_DEPLOY_APP linuxdeployqt)
+  find_program(QT_LINUX_DEPLOY_APP linuxdeployqt HINTS ${CMAKE_CURRENT_BINARY_DIR})
   if(QT_LINUX_DEPLOY_APP)
     message(STATUS "Found linuxdeployqt : ${QT_LINUX_DEPLOY_APP}")
   else()
