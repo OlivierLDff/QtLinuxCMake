@@ -1,8 +1,8 @@
 # find the Qt root directory
-if(NOT Qt5Core_DIR)
-  find_package(Qt5Core REQUIRED)
+if(NOT Qt6Core_DIR)
+  find_package(Qt6Core REQUIRED)
 endif()
-get_filename_component(QT_LINUX_QT_ROOT "${Qt5Core_DIR}/../../.." ABSOLUTE)
+get_filename_component(QT_LINUX_QT_ROOT "${Qt6Core_DIR}/../../.." ABSOLUTE)
 message(STATUS "Found Qt for Linux: ${QT_LINUX_QT_ROOT}")
 
 set(QT_LINUX_QT_ROOT ${QT_LINUX_QT_ROOT})
