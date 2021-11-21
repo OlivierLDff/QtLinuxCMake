@@ -187,6 +187,7 @@ function(add_qt_linux_appimage TARGET)
       ${QT_LINUX_STRIP_OPT}
       ${QT_LINUX_COPYRIGHT_OPT}
       ${QT_LINUX_VERBOSE_OPT}
+      -unsupported-allow-new-glibc
 
     COMMENT "Deploy AppImage with ${QT_LINUX_DEPLOY_APP}. Source are in ${QT_LINUX_SOURCE_DIR}"
   )
